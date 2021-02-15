@@ -1,6 +1,6 @@
-# svgMap-next
+# svgmap-next
 
-svgMap-next is a JavaScript library that lets you easily create an interactable world map comparing customizable data for each country. It's a Webpack-compatible adaptation of the original [svgmap](https://github.com/StephanWagner/svgMap) by Stephen Wagner.
+svgmap-next is a JavaScript library that lets you easily create an interactable world map comparing customizable data for each country. It's a Webpack-compatible adaptation of the original [svgMap](https://github.com/StephanWagner/svgMap) by Stephen Wagner.
 
 ## Install
 
@@ -11,14 +11,14 @@ yarn add svgmap-next
 ## Webpack Usage
 
 ```html
-<div id="svgMap"></div>
+<div id="map"></div>
 ```
 
 ```javascript
-import svgMap from 'svgmap-next'
+import svgmap from 'svgmap-next'
 
-const map = new svgMap({
-  element: document.getElementById('svgMap'),
+const map = new svgmap({
+  element: document.getElementById('map'),
   data: {
     data: {
       gdp: {
@@ -101,22 +101,10 @@ To create your own translations, check out [country-list](https://github.com/ump
 
 ## Attribution
 
-If you need more detailed maps or more options for your data, there is a great open source project called [datawrapper](https://github.com/datawrapper/datawrapper) out there, with a lot more power than svgMap.
+If you need more detailed maps or more options for your data, there is a great open source project called [datawrapper](https://github.com/datawrapper/datawrapper) out there, with a lot more power than svgmap-next.
 
-svgMap uses [svg-pan-zoom](https://github.com/ariutta/svg-pan-zoom) by [Anders Riutta](https://github.com/ariutta).
+svgmap-next uses [svg-pan-zoom](https://github.com/ariutta/svg-pan-zoom) by [Anders Riutta](https://github.com/ariutta).
 
 The country flag images are from [country-flags](https://github.com/hjnilsson/country-flags) by [Hampus Nilsson](https://github.com/hjnilsson).
 
 Most data in the demos was taken from [Wikipedia](https://www.wikipedia.org).
-
----
-
-## Appendix - Internet Explorer 11 Support
-
-The library uses both `Object.assign` and `classlist.add`, which are not supported by IE11. In order to make this library work in IE11, you need to use a polyfill, which adds this functionalty to the browser. You can create a bundle by going to https://polyfill.io/v3/, or can use the pre-defined one below, which adds both of these two polyfills.
-
-```html
-<script src="https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.classList%2CObject.assign"></script>
-```
-
-Ensure to include this script before the svgMap scripts.
