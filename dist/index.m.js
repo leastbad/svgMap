@@ -1,4 +1,502 @@
-export const paths = {
+import svgPanZoom from 'svg-pan-zoom/src/svg-pan-zoom.js';
+
+const countries = {
+  AF: 'Afghanistan',
+  AX: 'Åland Islands',
+  AL: 'Albania',
+  DZ: 'Algeria',
+  AS: 'American Samoa',
+  AD: 'Andorra',
+  AO: 'Angola',
+  AI: 'Anguilla',
+  AQ: 'Antarctica',
+  AG: 'Antigua and Barbuda',
+  AR: 'Argentina',
+  AM: 'Armenia',
+  AW: 'Aruba',
+  AU: 'Australia',
+  AT: 'Austria',
+  AZ: 'Azerbaijan',
+  BS: 'Bahamas',
+  BH: 'Bahrain',
+  BD: 'Bangladesh',
+  BB: 'Barbados',
+  BY: 'Belarus',
+  BE: 'Belgium',
+  BZ: 'Belize',
+  BJ: 'Benin',
+  BM: 'Bermuda',
+  BT: 'Bhutan',
+  BO: 'Bolivia',
+  BA: 'Bosnia and Herzegovina',
+  BW: 'Botswana',
+  BR: 'Brazil',
+  IO: 'British Indian Ocean Territory',
+  VG: 'British Virgin Islands',
+  BN: 'Brunei Darussalam',
+  BG: 'Bulgaria',
+  BF: 'Burkina Faso',
+  BI: 'Burundi',
+  KH: 'Cambodia',
+  CM: 'Cameroon',
+  CA: 'Canada',
+  CV: 'Cape Verde',
+  BQ: 'Caribbean Netherlands',
+  KY: 'Cayman Islands',
+  CF: 'Central African Republic',
+  TD: 'Chad',
+  CL: 'Chile',
+  CN: 'China',
+  CX: 'Christmas Island',
+  CC: 'Cocos Islands',
+  CO: 'Colombia',
+  KM: 'Comoros',
+  CG: 'Congo',
+  CK: 'Cook Islands',
+  CR: 'Costa Rica',
+  HR: 'Croatia',
+  CU: 'Cuba',
+  CW: 'Curaçao',
+  CY: 'Cyprus',
+  CZ: 'Czech Republic',
+  CD: 'Democratic Republic of the Congo',
+  DK: 'Denmark',
+  DJ: 'Djibouti',
+  DM: 'Dominica',
+  DO: 'Dominican Republic',
+  EC: 'Ecuador',
+  EG: 'Egypt',
+  SV: 'El Salvador',
+  GQ: 'Equatorial Guinea',
+  ER: 'Eritrea',
+  EE: 'Estonia',
+  ET: 'Ethiopia',
+  FK: 'Falkland Islands',
+  FO: 'Faroe Islands',
+  FM: 'Federated States of Micronesia',
+  FJ: 'Fiji',
+  FI: 'Finland',
+  FR: 'France',
+  GF: 'French Guiana',
+  PF: 'French Polynesia',
+  TF: 'French Southern Territories',
+  GA: 'Gabon',
+  GM: 'Gambia',
+  GE: 'Georgia',
+  DE: 'Germany',
+  GH: 'Ghana',
+  GI: 'Gibraltar',
+  GR: 'Greece',
+  GL: 'Greenland',
+  GD: 'Grenada',
+  GP: 'Guadeloupe',
+  GU: 'Guam',
+  GT: 'Guatemala',
+  GN: 'Guinea',
+  GW: 'Guinea-Bissau',
+  GY: 'Guyana',
+  HT: 'Haiti',
+  HN: 'Honduras',
+  HK: 'Hong Kong',
+  HU: 'Hungary',
+  IS: 'Iceland',
+  IN: 'India',
+  ID: 'Indonesia',
+  IR: 'Iran',
+  IQ: 'Iraq',
+  IE: 'Ireland',
+  IM: 'Isle of Man',
+  IL: 'Israel',
+  IT: 'Italy',
+  CI: 'Ivory Coast',
+  JM: 'Jamaica',
+  JP: 'Japan',
+  JE: 'Jersey',
+  JO: 'Jordan',
+  KZ: 'Kazakhstan',
+  KE: 'Kenya',
+  KI: 'Kiribati',
+  XK: 'Kosovo',
+  KW: 'Kuwait',
+  KG: 'Kyrgyzstan',
+  LA: 'Laos',
+  LV: 'Latvia',
+  LB: 'Lebanon',
+  LS: 'Lesotho',
+  LR: 'Liberia',
+  LY: 'Libya',
+  LI: 'Liechtenstein',
+  LT: 'Lithuania',
+  LU: 'Luxembourg',
+  MO: 'Macau',
+  MK: 'Macedonia',
+  MG: 'Madagascar',
+  MW: 'Malawi',
+  MY: 'Malaysia',
+  MV: 'Maldives',
+  ML: 'Mali',
+  MT: 'Malta',
+  MH: 'Marshall Islands',
+  MQ: 'Martinique',
+  MR: 'Mauritania',
+  MU: 'Mauritius',
+  YT: 'Mayotte',
+  MX: 'Mexico',
+  MD: 'Moldova',
+  MC: 'Monaco',
+  MN: 'Mongolia',
+  ME: 'Montenegro',
+  MS: 'Montserrat',
+  MA: 'Morocco',
+  MZ: 'Mozambique',
+  MM: 'Myanmar',
+  NA: 'Namibia',
+  NR: 'Nauru',
+  NP: 'Nepal',
+  NL: 'Netherlands',
+  NC: 'New Caledonia',
+  NZ: 'New Zealand',
+  NI: 'Nicaragua',
+  NE: 'Niger',
+  NG: 'Nigeria',
+  NU: 'Niue',
+  NF: 'Norfolk Island',
+  KP: 'North Korea',
+  MP: 'Northern Mariana Islands',
+  NO: 'Norway',
+  OM: 'Oman',
+  PK: 'Pakistan',
+  PW: 'Palau',
+  PS: 'Palestine',
+  PA: 'Panama',
+  PG: 'Papua New Guinea',
+  PY: 'Paraguay',
+  PE: 'Peru',
+  PH: 'Philippines',
+  PN: 'Pitcairn Islands',
+  PL: 'Poland',
+  PT: 'Portugal',
+  PR: 'Puerto Rico',
+  QA: 'Qatar',
+  RE: 'Reunion',
+  RO: 'Romania',
+  RU: 'Russia',
+  RW: 'Rwanda',
+  SH: 'Saint Helena',
+  KN: 'Saint Kitts and Nevis',
+  LC: 'Saint Lucia',
+  PM: 'Saint Pierre and Miquelon',
+  VC: 'Saint Vincent and the Grenadines',
+  WS: 'Samoa',
+  SM: 'San Marino',
+  ST: 'São Tomé and Príncipe',
+  SA: 'Saudi Arabia',
+  SN: 'Senegal',
+  RS: 'Serbia',
+  SC: 'Seychelles',
+  SL: 'Sierra Leone',
+  SG: 'Singapore',
+  SX: 'Sint Maarten',
+  SK: 'Slovakia',
+  SI: 'Slovenia',
+  SB: 'Solomon Islands',
+  SO: 'Somalia',
+  ZA: 'South Africa',
+  GS: 'South Georgia and the South Sandwich Islands',
+  KR: 'South Korea',
+  SS: 'South Sudan',
+  ES: 'Spain',
+  LK: 'Sri Lanka',
+  SD: 'Sudan',
+  SR: 'Suriname',
+  SJ: 'Svalbard and Jan Mayen',
+  SZ: 'Eswatini',
+  SE: 'Sweden',
+  CH: 'Switzerland',
+  SY: 'Syria',
+  TW: 'Taiwan',
+  TJ: 'Tajikistan',
+  TZ: 'Tanzania',
+  TH: 'Thailand',
+  TL: 'Timor-Leste',
+  TG: 'Togo',
+  TK: 'Tokelau',
+  TO: 'Tonga',
+  TT: 'Trinidad and Tobago',
+  TN: 'Tunisia',
+  TR: 'Turkey',
+  TM: 'Turkmenistan',
+  TC: 'Turks and Caicos Islands',
+  TV: 'Tuvalu',
+  UG: 'Uganda',
+  UA: 'Ukraine',
+  AE: 'United Arab Emirates',
+  GB: 'United Kingdom',
+  US: 'United States',
+  UM: 'United States Minor Outlying Islands',
+  VI: 'United States Virgin Islands',
+  UY: 'Uruguay',
+  UZ: 'Uzbekistan',
+  VU: 'Vanuatu',
+  VA: 'Vatican City',
+  VE: 'Venezuela',
+  VN: 'Vietnam',
+  WF: 'Wallis and Futuna',
+  EH: 'Western Sahara',
+  YE: 'Yemen',
+  ZM: 'Zambia',
+  ZW: 'Zimbabwe'
+};
+
+const emojiFlags = {
+  AF: '🇦🇫',
+  AX: '🇦🇽',
+  AL: '🇦🇱',
+  DZ: '🇩🇿',
+  AS: '🇦🇸',
+  AD: '🇦🇩',
+  AO: '🇦🇴',
+  AI: '🇦🇮',
+  AQ: '🇦🇶',
+  AG: '🇦🇬',
+  AR: '🇦🇷',
+  AM: '🇦🇲',
+  AW: '🇦🇼',
+  AU: '🇦🇺',
+  AT: '🇦🇹',
+  AZ: '🇦🇿',
+  BS: '🇧🇸',
+  BH: '🇧🇭',
+  BD: '🇧🇩',
+  BB: '🇧🇧',
+  BY: '🇧🇾',
+  BE: '🇧🇪',
+  BZ: '🇧🇿',
+  BJ: '🇧🇯',
+  BM: '🇧🇲',
+  BT: '🇧🇹',
+  BO: '🇧🇴',
+  BA: '🇧🇦',
+  BW: '🇧🇼',
+  BR: '🇧🇷',
+  IO: '🇮🇴',
+  VG: '🇻🇬',
+  BN: '🇧🇳',
+  BG: '🇧🇬',
+  BF: '🇧🇫',
+  BI: '🇧🇮',
+  KH: '🇰🇭',
+  CM: '🇨🇲',
+  CA: '🇨🇦',
+  CV: '🇨🇻',
+  BQ: '🇧🇶',
+  KY: '🇰🇾',
+  CF: '🇨🇫',
+  TD: '🇹🇩',
+  CL: '🇨🇱',
+  CN: '🇨🇳',
+  CX: '🇨🇽',
+  CC: '🇨🇨',
+  CO: '🇨🇴',
+  KM: '🇰🇲',
+  CG: '🇨🇬',
+  CK: '🇨🇰',
+  CR: '🇨🇷',
+  HR: '🇭🇷',
+  CU: '🇨🇺',
+  CW: '🇨🇼',
+  CY: '🇨🇾',
+  CZ: '🇨🇿',
+  CD: '🇨🇩',
+  DK: '🇩🇰',
+  DJ: '🇩🇯',
+  DM: '🇩🇲',
+  DO: '🇩🇴',
+  EC: '🇪🇨',
+  EG: '🇪🇬',
+  SV: '🇸🇻',
+  GQ: '🇬🇶',
+  ER: '🇪🇷',
+  EE: '🇪🇪',
+  ET: '🇪🇹',
+  FK: '🇫🇰',
+  FO: '🇫🇴',
+  FM: '🇫🇲',
+  FJ: '🇫🇯',
+  FI: '🇫🇮',
+  FR: '🇫🇷',
+  GF: '🇬🇫',
+  PF: '🇵🇫',
+  TF: '🇹🇫',
+  GA: '🇬🇦',
+  GM: '🇬🇲',
+  GE: '🇬🇪',
+  DE: '🇩🇪',
+  GH: '🇬🇭',
+  GI: '🇬🇮',
+  GR: '🇬🇷',
+  GL: '🇬🇱',
+  GD: '🇬🇩',
+  GP: '🇬🇵',
+  GU: '🇬🇺',
+  GT: '🇬🇹',
+  GN: '🇬🇳',
+  GW: '🇬🇼',
+  GY: '🇬🇾',
+  HT: '🇭🇹',
+  HN: '🇭🇳',
+  HK: '🇭🇰',
+  HU: '🇭🇺',
+  IS: '🇮🇸',
+  IN: '🇮🇳',
+  ID: '🇮🇩',
+  IR: '🇮🇷',
+  IQ: '🇮🇶',
+  IE: '🇮🇪',
+  IM: '🇮🇲',
+  IL: '🇮🇱',
+  IT: '🇮🇹',
+  CI: '🇨🇮',
+  JM: '🇯🇲',
+  JP: '🇯🇵',
+  JE: '🇯🇪',
+  JO: '🇯🇴',
+  KZ: '🇰🇿',
+  KE: '🇰🇪',
+  KI: '🇰🇮',
+  XK: '🇽🇰',
+  KW: '🇰🇼',
+  KG: '🇰🇬',
+  LA: '🇱🇦',
+  LV: '🇱🇻',
+  LB: '🇱🇧',
+  LS: '🇱🇸',
+  LR: '🇱🇷',
+  LY: '🇱🇾',
+  LI: '🇱🇮',
+  LT: '🇱🇹',
+  LU: '🇱🇺',
+  MO: '🇲🇴',
+  MK: '🇲🇰',
+  MG: '🇲🇬',
+  MW: '🇲🇼',
+  MY: '🇲🇾',
+  MV: '🇲🇻',
+  ML: '🇲🇱',
+  MT: '🇲🇹',
+  MH: '🇲🇭',
+  MQ: '🇲🇶',
+  MR: '🇲🇷',
+  MU: '🇲🇺',
+  YT: '🇾🇹',
+  MX: '🇲🇽',
+  MD: '🇲🇩',
+  MC: '🇲🇨',
+  MN: '🇲🇳',
+  ME: '🇲🇪',
+  MS: '🇲🇸',
+  MA: '🇲🇦',
+  MZ: '🇲🇿',
+  MM: '🇲🇲',
+  NA: '🇳🇦',
+  NR: '🇳🇷',
+  NP: '🇳🇵',
+  NL: '🇳🇱',
+  NC: '🇳🇨',
+  NZ: '🇳🇿',
+  NI: '🇳🇮',
+  NE: '🇳🇪',
+  NG: '🇳🇬',
+  NU: '🇳🇺',
+  NF: '🇳🇫',
+  KP: '🇰🇵',
+  MP: '🇲🇵',
+  NO: '🇳🇴',
+  OM: '🇴🇲',
+  PK: '🇵🇰',
+  PW: '🇵🇼',
+  PS: '🇵🇸',
+  PA: '🇵🇦',
+  PG: '🇵🇬',
+  PY: '🇵🇾',
+  PE: '🇵🇪',
+  PH: '🇵🇭',
+  PN: '🇵🇳',
+  PL: '🇵🇱',
+  PT: '🇵🇹',
+  PR: '🇵🇷',
+  QA: '🇶🇦',
+  RE: '🇷🇪',
+  RO: '🇷🇴',
+  RU: '🇷🇺',
+  RW: '🇷🇼',
+  SH: '🇸🇭',
+  KN: '🇰🇳',
+  LC: '🇱🇨',
+  PM: '🇵🇲',
+  VC: '🇻🇨',
+  WS: '🇼🇸',
+  SM: '🇸🇲',
+  ST: '🇸🇹',
+  SA: '🇸🇦',
+  SN: '🇸🇳',
+  RS: '🇷🇸',
+  SC: '🇸🇨',
+  SL: '🇸🇱',
+  SG: '🇸🇬',
+  SX: '🇸🇽',
+  SK: '🇸🇰',
+  SI: '🇸🇮',
+  SB: '🇸🇧',
+  SO: '🇸🇴',
+  ZA: '🇿🇦',
+  GS: '🇬🇸',
+  KR: '🇰🇷',
+  SS: '🇸🇸',
+  ES: '🇪🇸',
+  LK: '🇱🇰',
+  SD: '🇸🇩',
+  SR: '🇸🇷',
+  SJ: '🇸🇯',
+  SZ: '🇸🇿',
+  SE: '🇸🇪',
+  CH: '🇨🇭',
+  SY: '🇸🇾',
+  TW: '🇹🇼',
+  TJ: '🇹🇯',
+  TZ: '🇹🇿',
+  TH: '🇹🇭',
+  TL: '🇹🇱',
+  TG: '🇹🇬',
+  TK: '🇹🇰',
+  TO: '🇹🇴',
+  TT: '🇹🇹',
+  TN: '🇹🇳',
+  TR: '🇹🇷',
+  TM: '🇹🇲',
+  TC: '🇹🇨',
+  TV: '🇹🇻',
+  UG: '🇺🇬',
+  UA: '🇺🇦',
+  AE: '🇦🇪',
+  GB: '🇬🇧',
+  US: '🇺🇸',
+  UM: '🇺🇲',
+  VI: '🇻🇮',
+  UY: '🇺🇾',
+  UZ: '🇺🇿',
+  VU: '🇻🇺',
+  VA: '🇻🇦',
+  VE: '🇻🇪',
+  VN: '🇻🇳',
+  WF: '🇼🇫',
+  EH: '🇪🇭',
+  YE: '🇾🇪',
+  ZM: '🇿🇲',
+  ZW: '🇿🇼'
+};
+
+const paths = {
   AF: {
     d:
       'M1369.9,333.8h-5.4l-3.8-0.5l-2.5,2.9l-2.1,0.7l-1.5,1.3l-2.6-2.1l-1-5.4l-1.6-0.3v-2l-3.2-1.5l-1.7,2.3l0.2,2.6 l-0.6,0.9l-3.2-0.1l-0.9,3l-2.1-1.3l-3.3,2.1l-1.8-0.8l-4.3-1.4h-2.9l-1.6-0.2l-2.9-1.7l-0.3,2.3l-4.1,1.2l0.1,5.2l-2.5,2l-4,0.9 l-0.4,3l-3.9,0.8l-5.9-2.4l-0.5,8l-0.5,4.7l2.5,0.9l-1.6,3.5l2.7,5.1l1.1,4l4.3,1.1l1.1,4l-3.9,5.8l9.6,3.2l5.3-0.9l3.3,0.8l0.9-1.4 l3.8,0.5l6.6-2.6l-0.8-5.4l2.3-3.6h4l0.2-1.7l4-0.9l2.1,0.6l1.7-1.8l-1.1-3.8l1.5-3.8l3-1.6l-3-4.2l5.1,0.2l0.9-2.3l-0.8-2.5l2-2.7 l-1.4-3.2l-1.9-2.8l2.4-2.8l5.3-1.3l5.8-0.8l2.4-1.2l2.8-0.7L1369.9,333.8L1369.9,333.8z'
@@ -849,4 +1347,497 @@ export const paths = {
     d:
       'M969.3,363.1l-1.8-6.7l-0.3-3.9l-2-4.1l-2.3-0.1l-5.5-1.4l-5,0.4l-3.1-2.7h-3.9l-1.8,3.9l-3.7,6.7l-4,2.6 l-5.4,2.9L927,365l-0.9,3.4l-2.1,5.4l1.1,7.9l-4.7,5.3l-2.7,1.7l-4.4,4.4l-5.1,0.7l-2.8,2.4l-0.1,0.1l-3.6,6.5l-3.7,2.3l-2.1,4 l-0.2,3.3l-1.6,3.8l-1.9,1l-3.1,4l-2,4.5l0.3,2.2l-1.9,3.3l-2.2,1.7l-0.3,3l-0.3,2.7l1.2-2.2l21.6,0.1l-0.9-9.2l1.4-3.3l5.2-0.5 l0.2-16.3l17.9,0.3l0.2-9.7l0.1-1.2v-0.4l0,0l0,0l0,0l0.1-7.5l8.9-4.7l5.4-1l4.4-1.7l2.1-3.2l6.3-2.5l0.3-4.7l3.1-0.5l2.5-2.4l7-1 l1-2.5L969.3,363.1z'
   }
+};
+
+class index {
+  constructor (options) {
+    // Default options, pass a custom options object to overwrite specific
+    const defaultOptions = {
+      // The element to render the map in
+      element: null,
+
+      // Minimum and maximum zoom
+      minZoom: 1,
+      maxZoom: 25,
+
+      // Initial zoom
+      initialZoom: 1.06,
+
+      // Zoom sensitivity
+      zoomScaleSensitivity: 0.2,
+
+      // Zoom with mousewheel
+      mouseWheelZoomEnabled: true,
+
+      // Data colors
+      colorMax: '#CC0033',
+      colorMin: '#FFE5D9',
+      colorNoData: '#E2E2E2',
+
+      // The flag type can be 'image' or 'emoji'
+      flagType: 'image',
+
+      // The URL to the flags when using flag type 'image', {0} will get replaced with the lowercase country id
+      flagURL:
+        'https://cdn.jsdelivr.net/gh/hjnilsson/country-flags@latest/svg/{0}.svg',
+
+      // Decide whether to show the flag option or not
+      hideFlag: false,
+
+      // The default text to be shown when no data is present
+      noDataText: 'No data available',
+
+      // Country specific options
+      countries: {
+        // Western Sahara: Set to false to combine Morocco (MA) and Western Sahara (EH)
+        EH: true
+      }
+    };
+
+    this.options = Object.assign({}, defaultOptions, options || {});
+
+    // Abort if target element not found
+    if (!this.options.element) console.log('Target element not found');
+
+    // Abort if no data
+    if (!this.options.data) console.log('No data');
+
+    // Cache wrapper element
+    this.wrapper = this.options.element;
+
+    // Global id
+    this.id = this.wrapper.id;
+
+    // Create the map
+    this.createMap();
+
+    // Apply map data
+    this.applyData(this.options.data);
+  }
+
+  createTooltip () {
+    if (this.tooltip) return false
+
+    this.tooltip = this.createElement(
+      'div',
+      'svgMap-tooltip',
+      document.getElementsByTagName('body')[0]
+    );
+
+    this.tooltipContent = this.createElement(
+      'div',
+      'svgMap-tooltip-content-wrapper',
+      this.tooltip
+    );
+
+    this.tooltipPointer = this.createElement(
+      'div',
+      'svgMap-tooltip-pointer',
+      this.tooltip
+    );
+  }
+
+  // Set the tooltips content
+  setTooltipContent (content) {
+    if (!this.tooltip) return
+    this.tooltipContent.innerHTML = '';
+    this.tooltipContent.append(content);
+  }
+
+  // Show the tooltip
+  showTooltip (e) {
+    this.tooltip.classList.add('svgMap-active');
+    this.moveTooltip(e);
+  }
+
+  // Hide the tooltip
+  hideTooltip () {
+    this.tooltip.classList.remove('svgMap-active');
+  }
+
+  // Move the tooltip
+  moveTooltip (e) {
+    var x = e.pageX || (e.touches && e.touches[0] ? e.touches[0].pageX : null);
+    var y = e.pageY || (e.touches && e.touches[0] ? e.touches[0].pageY : null);
+
+    if (x === null || y === null) return
+
+    const offsetToWindow = 6;
+    const offsetToPointer = 12;
+    const offsetToPointerFlipped = 32;
+
+    const wWidth = window.innerWidth;
+    const tWidth = this.tooltip.offsetWidth;
+    const tHeight = this.tooltip.offsetHeight;
+
+    // Adjust pointer when reaching window sides
+    const left = x - tWidth / 2;
+    if (left <= offsetToWindow) {
+      x = offsetToWindow + tWidth / 2;
+      this.tooltipPointer.style.marginLeft = left - offsetToWindow + 'px';
+    } else if (left + tWidth >= wWidth - offsetToWindow) {
+      x = wWidth - offsetToWindow - tWidth / 2;
+      this.tooltipPointer.style.marginLeft =
+        (wWidth - offsetToWindow - e.pageX - tWidth / 2) * -1 + 'px';
+    } else {
+      this.tooltipPointer.style.marginLeft = '0px';
+    }
+
+    // Flip tooltip when reaching top window edge
+    const top = y - offsetToPointer - tHeight;
+    if (top <= offsetToWindow) {
+      this.tooltip.classList.add('svgMap-tooltip-flipped');
+      y += offsetToPointerFlipped;
+    } else {
+      this.tooltip.classList.remove('svgMap-tooltip-flipped');
+      y -= offsetToPointer;
+    }
+
+    this.tooltip.style.left = x + 'px';
+    this.tooltip.style.top = y + 'px';
+  }
+
+  // Helper to create an element with a class name
+  createElement (type, className, appendTo, innerhtml) {
+    const element = document.createElement(type);
+    if (className) {
+      className = className.split(' ');
+      className.forEach(item => {
+        element.classList.add(item);
+      });
+    }
+    innerhtml && (element.innerHTML = innerhtml);
+    appendTo && appendTo.appendChild(element);
+    return element
+  }
+
+  // Print numbers with commas
+  numberWithCommas (nr, separator) {
+    return nr.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator || ',')
+  }
+
+  // Get a color between two other colors
+  getColor (color1, color2, ratio) {
+    color1 = color1.slice(-6);
+    color2 = color2.slice(-6);
+    const r = Math.ceil(
+      parseInt(color1.substring(0, 2), 16) * ratio +
+        parseInt(color2.substring(0, 2), 16) * (1 - ratio)
+    );
+    const g = Math.ceil(
+      parseInt(color1.substring(2, 4), 16) * ratio +
+        parseInt(color2.substring(2, 4), 16) * (1 - ratio)
+    );
+    const b = Math.ceil(
+      parseInt(color1.substring(4, 6), 16) * ratio +
+        parseInt(color2.substring(4, 6), 16) * (1 - ratio)
+    );
+    return '#' + this.getHex(r) + this.getHex(g) + this.getHex(b)
+  }
+
+  // Get a hex value
+  getHex (value) {
+    value = value.toString(16);
+    return ('0' + value).slice(-2)
+  }
+
+  // Get the name of a country by its ID
+  getCountryName (countryID) {
+    return this.options.countryNames && this.options.countryNames[countryID]
+      ? this.options.countryNames[countryID]
+      : countries[countryID]
+  }
+
+  applyData (data) {
+    let max = null;
+    let min = null;
+
+    // Get highest and lowest value
+    Object.keys(data.values).forEach(function (countryID) {
+      const value = parseInt(data.values[countryID][data.applyData], 10);
+      max === null && (max = value);
+      min === null && (min = value);
+      value > max && (max = value);
+      value < min && (min = value);
+    });
+
+    data.data[data.applyData].thresholdMax &&
+      (max = Math.min(max, data.data[data.applyData].thresholdMax));
+    data.data[data.applyData].thresholdMin &&
+      (min = Math.max(min, data.data[data.applyData].thresholdMin));
+
+    // Loop through countries and set colors
+    Object.keys(countries).forEach(countryID => {
+      const element = document.getElementById(
+        this.id + '-map-country-' + countryID
+      );
+      if (!element) return
+      if (!data.values[countryID]) {
+        element.setAttribute('fill', this.options.colorNoData);
+        return
+      }
+      const value = Math.max(
+        min,
+        parseInt(data.values[countryID][data.applyData], 10)
+      );
+      const ratio = Math.max(0, Math.min(1, (value - min) / (max - min)));
+      const color = this.getColor(
+        this.options.colorMax,
+        this.options.colorMin,
+        ratio
+      );
+      element.setAttribute('fill', color);
+    });
+  }
+
+  createMap () {
+    this.createTooltip();
+
+    // Create map wrappers
+    this.mapWrapper = this.createElement(
+      'div',
+      'svgMap-map-wrapper',
+      this.wrapper
+    );
+    this.mapImage = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'svg'
+    );
+    this.mapImage.setAttribute('viewBox', '0 0 2000 1001');
+    this.mapImage.classList.add('svgMap-map-image');
+    this.mapWrapper.appendChild(this.mapImage);
+
+    // Add controls
+    const mapControlsWrapper = this.createElement(
+      'div',
+      'svgMap-map-controls-wrapper',
+      this.mapWrapper
+    );
+
+    const zoomContainer = this.createElement(
+      'div',
+      'svgMap-map-controls-zoom',
+      mapControlsWrapper
+    )
+    ;['in', 'out'].forEach(item => {
+      const zoomControlName =
+        'zoomControl' + item.charAt(0).toUpperCase() + item.slice(1);
+      this[zoomControlName] = this.createElement(
+        'button',
+        'svgMap-control-button svgMap-zoom-button svgMap-zoom-' +
+          item +
+          '-button',
+        zoomContainer
+      );
+      this[zoomControlName].type = 'button';
+      this[zoomControlName].addEventListener('click', () => this.zoomMap(item));
+    });
+
+    // Add accessible names to zoom controls
+    this.zoomControlIn.setAttribute('aria-label', 'Zoom in');
+    this.zoomControlOut.setAttribute('aria-label', 'Zoom out');
+
+    // Fix countries
+    const mapPaths = Object.assign({}, paths);
+
+    if (!countries.EH) {
+      mapPaths.MA.d = mapPaths['MA-EH'].d;
+      delete mapPaths.EH;
+    }
+    delete mapPaths['MA-EH'];
+
+    // Add map elements
+    Object.keys(mapPaths).forEach(countryID => {
+      const countryData = mapPaths[countryID];
+      if (!countryData.d) return
+
+      const countryElement = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'path'
+      );
+
+      countryElement.setAttribute('d', countryData.d);
+      countryElement.setAttribute('id', this.id + '-map-country-' + countryID);
+      countryElement.setAttribute('data-id', countryID);
+      countryElement.classList.add('svgMap-country');
+
+      this.mapImage.appendChild(countryElement)
+      ;['mouseenter', 'touchdown'].forEach(event => {
+        countryElement.addEventListener(event, () =>
+          countryElement.closest('g').appendChild(countryElement)
+        );
+      });
+
+      // TODO Tooltip events
+      // Make Country fixed on click
+      /* countryElement.addEventListener('click', function () {
+      var countryID = countryElement.getAttribute('data-id');
+      console.log(countryID);
+    });*/
+
+      // Tooltip events
+      // Add tooltip when touch is used
+      countryElement.addEventListener('touchstart', e => {
+        const countryID = countryElement.getAttribute('data-id');
+        setTooltipContent(this.getTooltipContent(countryID));
+        this.showTooltip(e);
+        this.moveTooltip(e);
+      });
+
+      countryElement.addEventListener('mouseenter', e => {
+        const countryID = countryElement.getAttribute('data-id');
+        this.setTooltipContent(this.getTooltipContent(countryID));
+        this.showTooltip(e);
+      });
+
+      countryElement.addEventListener('mousemove', e => this.moveTooltip(e))
+      ;[('touchend')].forEach(event => {
+        countryElement.addEventListener(event, () => this.hideTooltip());
+      });
+    });
+
+    // Expose instance
+    const self = this;
+
+    // Init pan zoom
+    this.mapPanZoom = svgPanZoom(this.mapImage, {
+      zoomEnabled: true,
+      fit: true,
+      center: true,
+      minZoom: this.options.minZoom,
+      maxZoom: this.options.maxZoom,
+      zoomScaleSensitivity: this.options.zoomScaleSensitivity,
+      controlIconsEnabled: false,
+      mouseWheelZoomEnabled: this.options.mouseWheelZoomEnabled, // TODO Only with key pressed
+      onZoom: () => self.setControlStatuses(),
+      beforePan: function (oldPan, newPan) {
+        const gutterWidth = self.mapWrapper.offsetWidth * 0.85;
+        const gutterHeight = self.mapWrapper.offsetHeight * 0.85;
+        const sizes = this.getSizes();
+        const leftLimit =
+          -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) +
+          gutterWidth;
+        const rightLimit =
+          sizes.width - gutterWidth - sizes.viewBox.x * sizes.realZoom;
+        const topLimit =
+          -((sizes.viewBox.y + sizes.viewBox.height) * sizes.realZoom) +
+          gutterHeight;
+        const bottomLimit =
+          sizes.height - gutterHeight - sizes.viewBox.y * sizes.realZoom;
+        return {
+          x: Math.max(leftLimit, Math.min(rightLimit, newPan.x)),
+          y: Math.max(topLimit, Math.min(bottomLimit, newPan.y))
+        }
+      }
+    });
+
+    // Init pan zoom
+    this.mapPanZoom.zoom(this.options.initialZoom);
+
+    // Initial zoom statuses
+    this.setControlStatuses();
+  }
+
+  // Create the tooltip content
+  getTooltipContent (countryID) {
+    const tooltipContentWrapper = this.createElement(
+      'div',
+      'svgMap-tooltip-content-container'
+    );
+
+    if (this.options.hideFlag === false) {
+      // Flag
+      const flagContainer = this.createElement(
+        'div',
+        'svgMap-tooltip-flag-container svgMap-tooltip-flag-container-' +
+          this.options.flagType,
+        tooltipContentWrapper
+      );
+
+      if (this.options.flagType === 'image') {
+        this.createElement(
+          'img',
+          'svgMap-tooltip-flag',
+          flagContainer
+        ).setAttribute(
+          'src',
+          this.options.flagURL.replace('{0}', countryID.toLowerCase())
+        );
+      } else if (this.options.flagType === 'emoji') {
+        flagContainer.innerHTML = emojiFlags[countryID];
+      }
+    }
+
+    // Title
+    this.createElement(
+      'div',
+      'svgMap-tooltip-title',
+      tooltipContentWrapper
+    ).innerHTML = this.getCountryName(countryID);
+
+    // Content
+    const tooltipContent = this.createElement(
+      'div',
+      'svgMap-tooltip-content',
+      tooltipContentWrapper
+    );
+    if (!this.options.data.values[countryID]) {
+      this.createElement(
+        'div',
+        'svgMap-tooltip-no-data',
+        tooltipContent
+      ).innerHTML = this.options.noDataText;
+    } else {
+      let tooltipContentTable = '<table>';
+      Object.keys(this.options.data.data).forEach(
+        function (key) {
+          const item = this.options.data.data[key];
+          let value = this.options.data.values[countryID][key];
+          item.floatingNumbers && (value = value.toFixed(1));
+          item.thousandSeparator &&
+            (value = this.numberWithCommas(value, item.thousandSeparator));
+          value = item.format
+            ? item.format.replace('{0}', '<span>' + value + '</span>')
+            : '<span>' + value + '</span>';
+          tooltipContentTable +=
+            '<tr><td>' + (item.name || '') + '</td><td>' + value + '</td></tr>';
+        }.bind(this)
+      );
+      tooltipContentTable += '</table>';
+      tooltipContent.innerHTML = tooltipContentTable;
+    }
+    return tooltipContentWrapper
+  }
+
+  // Set the disabled statuses for buttons
+  setControlStatuses () {
+    this.zoomControlIn.classList.remove('svgMap-disabled');
+    this.zoomControlIn.setAttribute('aria-disabled', 'false');
+    this.zoomControlOut.classList.remove('svgMap-disabled');
+    this.zoomControlOut.setAttribute('aria-disabled', 'false');
+
+    if (this.mapPanZoom.getZoom().toFixed(3) <= this.options.minZoom) {
+      this.zoomControlOut.classList.add('svgMap-disabled');
+      this.zoomControlOut.setAttribute('aria-disabled', 'true');
+    }
+    if (this.mapPanZoom.getZoom().toFixed(3) >= this.options.maxZoom) {
+      this.zoomControlIn.classList.add('svgMap-disabled');
+      this.zoomControlIn.setAttribute('aria-disabled', 'true');
+    }
+  }
+
+  // Zoom map
+  zoomMap (direction) {
+    if (
+      this[
+        'zoomControl' + direction.charAt(0).toUpperCase() + direction.slice(1)
+      ].classList.contains('svgMap-disabled')
+    ) {
+      return false
+    }
+    this.mapPanZoom[direction == 'in' ? 'zoomIn' : 'zoomOut']();
+  }
 }
+
+export default index;
+//# sourceMappingURL=index.m.js.map

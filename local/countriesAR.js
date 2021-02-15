@@ -244,4 +244,4 @@ var svgMapCountryNamesAR = {
   YE: 'اليمن',
   ZM: 'زامبيا',
   ZW: 'زيمبابوي'
-};
+}

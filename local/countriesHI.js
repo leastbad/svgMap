@@ -244,4 +244,4 @@ var svgMapCountryNamesHI = {
   YE: 'यमन',
   ZM: 'ज़ाम्बिया',
   ZW: 'ज़िम्बाब्वे'
-};
+}

@@ -1,4 +1,4 @@
-svgMap.prototype.emojiFlags = {
+export const emojiFlags = {
   AF: '🇦🇫',
   AX: '🇦🇽',
   AL: '🇦🇱',
@@ -244,4 +244,4 @@ svgMap.prototype.emojiFlags = {
   YE: '🇾🇪',
   ZM: '🇿🇲',
   ZW: '🇿🇼'
-};
+}

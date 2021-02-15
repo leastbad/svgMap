@@ -1,4 +1,1 @@
-
-var countries = {
-
-}
+var countries = {}

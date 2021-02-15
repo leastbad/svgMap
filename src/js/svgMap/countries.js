@@ -1,4 +1,4 @@
-svgMap.prototype.countries = {
+export const countries = {
   AF: 'Afghanistan',
   AX: 'Åland Islands',
   AL: 'Albania',
@@ -244,4 +244,4 @@ svgMap.prototype.countries = {
   YE: 'Yemen',
   ZM: 'Zambia',
   ZW: 'Zimbabwe'
-};
+}

@@ -244,4 +244,4 @@ var svgMapCountryNamesDE = {
   YE: 'Jemen',
   ZM: 'Sambia',
   ZW: 'Simbabwe'
-};
+}

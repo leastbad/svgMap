@@ -244,4 +244,4 @@ var svgMapCountryNamesZH = {
   YE: '也门',
   ZM: '赞比亚',
   ZW: '津巴布韦'
-};
+}
