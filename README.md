@@ -1,26 +1,24 @@
-# svgMap
+# svgMap-next
 
-svgMap is a JavaScript library that lets you easily create an interactable world map comparing customizable data for each country.
-
-Live demo: https://stephanwagner.me/create-world-map-charts-with-svgmap#svgMapDemoGDP
+svgMap-next is a JavaScript library that lets you easily create an interactable world map comparing customizable data for each country. It's a Webpack-compatible adaptation of the original [svgmap](https://github.com/StephanWagner/svgMap) by Stephen Wagner.
 
 ## Install
 
 ```bash
-npm install svgmap
+yarn add svgmap-next
 ```
 
-## Usage
-
-Include or require `svgMap.min.js` and you are ready to go:
+## Webpack Usage
 
 ```html
 <div id="svgMap"></div>
 ```
 
 ```javascript
-new svgMap({
-  targetElementID: 'svgMap',
+import svgMap from 'svgmap-next'
+
+const map = new svgMap({
+  element: document.getElementById('svgMap'),
   data: {
     data: {
       gdp: {
@@ -40,20 +38,20 @@ new svgMap({
       AF: {gdp: 587, change: 4.73},
       AL: {gdp: 4583, change: 11.09},
       DZ: {gdp: 4293, change: 10.01}
-      // ...
     }
   }
-});
-```
+})
 
-This example code creates a world map with the GDP per capita and its change to the previous year:
-https://stephanwagner.me/create-world-map-charts-with-svgmap#svgMapDemoGDP
+// later on, before leaving the page, eg. `turbolinks:before-cache`
+
+map.unload()
+```
 
 ## Options
 
 You can pass the following options into svgMap:
 
-* `targetElementID` (`string`) The ID of the element where the world map will render (Required)
+* `element` (`DOMElement`) The element where the world map will render (Required)
 
 * `minZoom`, `maxZoom` (`float`) Minimal and maximal zoom level. Default: `1` for `minZoom`, `25` for `maxZoom`
 

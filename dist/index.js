@@ -1623,14 +1623,13 @@ class index {
       'svgMap-map-controls-zoom',
       mapControlsWrapper
     )
+
     ;['in', 'out'].forEach(item => {
       const zoomControlName =
         'zoomControl' + item.charAt(0).toUpperCase() + item.slice(1);
       this[zoomControlName] = this.createElement(
         'button',
-        'svgMap-control-button svgMap-zoom-button svgMap-zoom-' +
-          item +
-          '-button',
+        `svgMap-control-button svgMap-zoom-button svgMap-zoom-${item}-button`,
         zoomContainer
       );
       this[zoomControlName].type = 'button';
@@ -1667,37 +1666,41 @@ class index {
 
       this.mapImage.appendChild(countryElement)
       ;['mouseenter', 'touchdown'].forEach(event => {
-        countryElement.addEventListener(event, () =>
-          countryElement.closest('g').appendChild(countryElement)
+        countryElement.addEventListener(
+          event,
+          () => countryElement.closest('g').appendChild(countryElement),
+          { passive: true }
         );
       });
 
-      // TODO Tooltip events
-      // Make Country fixed on click
-      /* countryElement.addEventListener('click', function () {
-      var countryID = countryElement.getAttribute('data-id');
-      console.log(countryID);
-    });*/
+      countryElement.addEventListener(
+        'touchstart',
+        e => {
+          const countryID = countryElement.getAttribute('data-id');
+          setTooltipContent(this.getTooltipContent(countryID));
+          this.showTooltip(e);
+          this.moveTooltip(e);
+        },
+        { passive: true }
+      );
 
-      // Tooltip events
-      // Add tooltip when touch is used
-      countryElement.addEventListener('touchstart', e => {
-        const countryID = countryElement.getAttribute('data-id');
-        setTooltipContent(this.getTooltipContent(countryID));
-        this.showTooltip(e);
-        this.moveTooltip(e);
-      });
-
-      countryElement.addEventListener('mouseenter', e => {
-        const countryID = countryElement.getAttribute('data-id');
-        this.setTooltipContent(this.getTooltipContent(countryID));
-        this.showTooltip(e);
-      });
+      countryElement.addEventListener(
+        'mouseenter',
+        e => {
+          const countryID = countryElement.getAttribute('data-id');
+          this.setTooltipContent(this.getTooltipContent(countryID));
+          this.showTooltip(e);
+        },
+        { passive: true }
+      );
 
       countryElement.addEventListener('mousemove', e => this.moveTooltip(e))
-      ;[('touchend')].forEach(event => {
-        countryElement.addEventListener(event, () => this.hideTooltip());
-      });
+      ;[('touchend')].forEach(
+        event => {
+          countryElement.addEventListener(event, () => this.hideTooltip());
+        },
+        { passive: true }
+      );
     });
 
     // Expose instance
@@ -1840,6 +1843,11 @@ class index {
       return false
     }
     this.mapPanZoom[direction == 'in' ? 'zoomIn' : 'zoomOut']();
+  }
+
+  unload () {
+    this.mapPanZoom.zoom = null;
+    this.mapPanZoom = null;
   }
 }
 
